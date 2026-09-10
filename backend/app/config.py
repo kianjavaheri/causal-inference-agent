@@ -12,8 +12,10 @@ class Settings:
     anthropic_report_model: str = os.getenv("ANTHROPIC_REPORT_MODEL", "claude-sonnet-5")
 
     # Comma-separated list, or "*" for any origin.
+    # Trailing slashes are stripped: browsers send Origin without one, so a pasted
+    # "https://app.vercel.app/" would otherwise silently fail every CORS check.
     cors_origins: list[str] = [
-        o.strip()
+        o.strip().rstrip("/")
         for o in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
         if o.strip()
     ]

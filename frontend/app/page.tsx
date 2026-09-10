@@ -9,6 +9,7 @@ import { MethodComparison } from "@/components/MethodComparison";
 import { Results } from "@/components/Results";
 import { QuestionForm } from "@/components/QuestionForm";
 import { DataDiagnosis } from "@/components/DataDiagnosis";
+import { BackendUnavailable } from "@/components/BackendUnavailable";
 import {
   buildReport, executeMethod, fetchHealth, fetchSamples, fetchSuggestions, runPipeline,
 } from "@/lib/api";
@@ -191,22 +192,7 @@ export default function Home() {
         </p>
       </header>
 
-      {apiDown ? (
-        <div
-          className="mb-8 rounded-xl px-5 py-4 text-[13.5px] leading-relaxed"
-          style={{ color: "var(--fail)", background: "var(--fail-soft)" }}
-        >
-          <p className="font-medium">Cannot reach the backend.</p>
-          <p className="mt-1">
-            Start it with{" "}
-            <code className="font-mono text-[12.5px]">
-              cd backend &amp;&amp; uvicorn app.main:app --reload
-            </code>
-            , or set <code className="font-mono text-[12.5px]">NEXT_PUBLIC_API_BASE</code> to
-            point at a deployed instance.
-          </p>
-        </div>
-      ) : null}
+      {apiDown ? <BackendUnavailable className="mb-8" /> : null}
 
       {/* Step 1 — data */}
       <section className="mb-8">

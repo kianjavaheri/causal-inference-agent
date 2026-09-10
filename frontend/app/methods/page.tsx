@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { API_BASE } from "@/lib/api";
 import type { MethodSpec } from "@/lib/types";
+import { BackendUnavailable } from "@/components/BackendUnavailable";
 
 export const metadata = {
   title: "Methods · Causal Inference Agent",
@@ -33,13 +34,7 @@ export default async function Methods() {
       </p>
 
       {methods === null ? (
-        <p
-          className="mt-10 rounded-xl px-5 py-4 text-[13.5px]"
-          style={{ color: "var(--fail)", background: "var(--fail-soft)" }}
-        >
-          Could not reach the backend to load the catalogue. Start it with{" "}
-          <code className="font-mono">uvicorn app.main:app --reload</code>.
-        </p>
+        <BackendUnavailable className="mt-10" />
       ) : (
         <div className="mt-10 space-y-5">
           {methods.map((m) => (
