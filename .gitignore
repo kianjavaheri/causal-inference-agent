@@ -62,6 +62,6 @@ Thumbs.db
 *~
 
 # ---- Claude Code ---------------------------------------------------------
-# .claude/launch.json is shared project config and stays tracked; per-user
-# permission settings do not.
-.claude/settings.local.json
+# Local tool config (dev-server launch settings, per-user permissions).
+# CLAUDE.md at the repo root is project documentation and stays tracked.
+.claude/
