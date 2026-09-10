@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/*
+  Palette: a research instrument, not a SaaS dashboard. Warm paper in light mode,
+  deep ink in dark. One accent (indigo) for the agent's own voice, and a small
+  semantic set for diagnostic verdicts.
+*/
+:root {
+  --paper: #fbfaf8;
+  --surface: #ffffff;
+  --surface-2: #f4f2ee;
+  --border: #e4e0d8;
+  --border-strong: #d2ccc0;
+  --ink: #1c1a17;
+  --ink-2: #55504a;
+  --ink-3: #8a8379;
+  --accent: #4f46e5;
+  --accent-soft: #eef2ff;
+  --accent-ink: #3730a3;
+  --pass: #0f766e;
+  --pass-soft: #ecfdf5;
+  --warn: #b45309;
+  --warn-soft: #fffbeb;
+  --fail: #b91c1c;
+  --fail-soft: #fef2f2;
+  --info: #475569;
+  --info-soft: #f1f5f9;
+  --grid: #e8e4dc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14161a;
+    --surface: #1b1e24;
+    --surface-2: #232830;
+    --border: #2e343d;
+    --border-strong: #3d444f;
+    --ink: #eceef2;
+    --ink-2: #a8b0bd;
+    --ink-3: #737c8a;
+    --accent: #818cf8;
+    --accent-soft: #1e213a;
+    --accent-ink: #c7d2fe;
+    --pass: #2dd4bf;
+    --pass-soft: #10231f;
+    --warn: #fbbf24;
+    --warn-soft: #2a2010;
+    --fail: #f87171;
+    --fail-soft: #2b1418;
+    --info: #94a3b8;
+    --info-soft: #202630;
+    --grid: #2a3039;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #14161a;
+  --surface: #1b1e24;
+  --surface-2: #232830;
+  --border: #2e343d;
+  --border-strong: #3d444f;
+  --ink: #eceef2;
+  --ink-2: #a8b0bd;
+  --ink-3: #737c8a;
+  --accent: #818cf8;
+  --accent-soft: #1e213a;
+  --accent-ink: #c7d2fe;
+  --pass: #2dd4bf;
+  --pass-soft: #10231f;
+  --warn: #fbbf24;
+  --warn-soft: #2a2010;
+  --fail: #f87171;
+  --fail-soft: #2b1418;
+  --info: #94a3b8;
+  --info-soft: #202630;
+  --grid: #2a3039;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border-base: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-pass: var(--pass);
+  --color-pass-soft: var(--pass-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-fail: var(--fail);
+  --color-fail-soft: var(--fail-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Numbers should line up in columns and never reflow as they stream in. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise { animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.animate-pulse-soft { animation: pulse-soft 1.6s ease-in-out infinite; }
+
+@keyframes draw {
+  from { stroke-dashoffset: var(--dash, 1200); }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise, .animate-pulse-soft { animation: none; }
+}
+
+::selection { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* Scrollbars inside the wide diagnostic tables. */
+.scroll-x { overflow-x: auto; scrollbar-width: thin; }
+.scroll-x::-webkit-scrollbar { height: 8px; }
+.scroll-x::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
